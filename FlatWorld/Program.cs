@@ -47,7 +47,9 @@ namespace FlatWorld
                     input.WriteLine();
                 }
             }
-            
+
+            Console.Write("Press enter to see result.");
+            Console.ReadKey();
 
             arr = getArrayFromText();
             int res = numOrganisms(arr);
