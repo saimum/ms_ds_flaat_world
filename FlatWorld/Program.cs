@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,12 @@ namespace FlatWorld
 {
     class Program
     {
+        static char open = '0';
+        static char close = 'O';
         static void Main(string[] args)
         {
+            //Console.WriteLine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+            //Console.ReadKey();
             Nullable<bool>[,] arr;
 
             Console.Write("Number of row: ");
@@ -18,12 +23,12 @@ namespace FlatWorld
             Console.Write("Number of colum: ");
             int colum = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("\n");
-            arr = new Nullable<bool>[row, colum];
+            //arr = new Nullable<bool>[row, colum];
 
             Random random = new Random();
 
             using (System.IO.StreamWriter input =
-            new System.IO.StreamWriter(@"C:\Users\saimum_pc\Downloads\FlatWorld_1\FlatWorld_1\FlatWorld\input.txt"))
+            new System.IO.StreamWriter(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\input.txt"))
             {
                 for (int i = 0; i < row; i++)
                 {
@@ -32,20 +37,46 @@ namespace FlatWorld
                         int temp = random.Next(0, 2);
                         if (temp == 0)
                         {
-                            input.Write("-");
+                            input.Write(close);
                         }
                         else
                         {
-                            input.Write("+");
+                            input.Write(open);
                         }
                     }
                     input.WriteLine();
                 }
             }
+            
 
+            arr = getArrayFromText();
             int res = numOrganisms(arr);
             Console.WriteLine("\n result : " + res);
             Console.ReadKey();
+        }
+
+        static Nullable<bool>[,] getArrayFromText()
+        {
+            string[] lines = System.IO.File.ReadAllLines(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + @"\input.txt").Where(m => m != "").ToArray();
+            int row = lines.Count();
+            int colum = lines[0].Count();
+            Nullable<bool>[,] arr = new Nullable<bool>[row, colum];
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < colum; j++)
+                {
+                    var temp = lines[i][j];
+                    if (temp == close)
+                    {
+                        arr[i, j] = false;
+                    }
+                    else
+                    {
+                        arr[i, j] = true;
+                    }
+                }
+            }
+            return arr;
         }
 
         static int numOrganisms(Nullable<bool>[,] arr)
