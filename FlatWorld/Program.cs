@@ -20,12 +20,14 @@ namespace FlatWorld
             Console.WriteLine("\n");
             arr = new Nullable<bool>[row, colum];
 
+            Random random = new Random();
+            
+
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < colum; j++)
                 {
-                    Console.Write("[" + i + "," + j + "]: ");
-                    int temp = Convert.ToInt32(Console.ReadLine());
+                    int temp = random.Next(0, 2);
                     if (temp == 0)
                     {
                         arr[i, j] = false;
@@ -37,15 +39,15 @@ namespace FlatWorld
                 }
             }
             //traversal  
-            //Console.WriteLine("\n\n");
-            //for (int i = 0; i < row; i++)
-            //{
-            //    for (int j = 0; j < colum; j++)
-            //    {
-            //        Console.Write(arr[i, j] + " ");
-            //    }
-            //    Console.WriteLine();
-            //}
+            Console.WriteLine("\n\n");
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < colum; j++)
+                {
+                    Console.Write(arr[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
 
             int res = numOrganisms(arr);
             Console.WriteLine("\n result : " + res);
