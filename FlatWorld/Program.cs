@@ -21,32 +21,26 @@ namespace FlatWorld
             arr = new Nullable<bool>[row, colum];
 
             Random random = new Random();
-            
 
-            for (int i = 0; i < row; i++)
+            using (System.IO.StreamWriter input =
+            new System.IO.StreamWriter(@"C:\Users\saimum_pc\Downloads\FlatWorld_1\FlatWorld_1\FlatWorld\input.txt"))
             {
-                for (int j = 0; j < colum; j++)
+                for (int i = 0; i < row; i++)
                 {
-                    int temp = random.Next(0, 2);
-                    if (temp == 0)
+                    for (int j = 0; j < colum; j++)
                     {
-                        arr[i, j] = false;
+                        int temp = random.Next(0, 2);
+                        if (temp == 0)
+                        {
+                            input.Write("-");
+                        }
+                        else
+                        {
+                            input.Write("+");
+                        }
                     }
-                    else
-                    {
-                        arr[i, j] = true;
-                    }
+                    input.WriteLine();
                 }
-            }
-            //traversal  
-            Console.WriteLine("\n\n");
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < colum; j++)
-                {
-                    Console.Write(arr[i, j] + " ");
-                }
-                Console.WriteLine();
             }
 
             int res = numOrganisms(arr);
